@@ -1,0 +1,73 @@
+{% extends 'base.html'%}
+
+{% block content %}
+    <div class="container mt-4">
+        <form action="/pets/{{ pet.id }}" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group row justify-content-center">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        {{ form.name.label(class_="col-sm-2") }}
+                        <div class="col-sm-10">
+                            <input class="form-control" name="name" value="{{ pet.name }}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        {{ form.species.label(class_="col-sm-2") }}
+                        <div class="col-sm-10">
+                            <input class="form-control" name="species" value="{{ pet.species }}" readonly>
+                        </div>
+                    </div>
+                    {% if pet.age %}
+                        <div class="col-md-12">
+                            {{ form.age.label(class_="col-sm-2") }}
+                            <div class="col-sm-10">
+                                <input class="form-control" name="age" value="{{ pet.age }}" readonly>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if pet.img_url %}
+                        <div class="col-md-12">
+                            {{ form.img_url.label(class_="col-sm-2") }}
+                            <div class="col-sm-10">
+                                <img class="card-img-top" src="{{ pet.img_url }}" alt="{{ pet.name }}">
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <h5>Update your {{ pet.species }} if you want:</h5>
+                    </div>
+                    <div class="col-md-12">
+                        {{ form.img_url.label(class_="col-sm-2") }}
+                        <div class="col-sm-10">
+                            {{ form.img_url(class_="form-control") }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        {{ form.notes.label(class_="col-sm-2") }}
+                        <div class="col-sm-10">
+                            {{ form.notes(class_="form-control") }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        {{ form.available.label(class_="col-sm-2") }}
+                        <div class="col-sm-10">
+                            {{ form.available(class_="form-control") }}
+                        </div>
+                    </div>
+                </div>
+                {% for field in form if field.widget.input_type != 'hidden' %}
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endfor %}
+                <div class="justify-content-center">
+                    <button class="btn btn-primary" type="submit">Update</button>
+                    <a class="btn btn-light" href="/" methods="GET" role="button">Back</a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

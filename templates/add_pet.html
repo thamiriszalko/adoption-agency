@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+
+{% block content %}
+    <div class="container mt-4">
+        <form id="pet_add_form" method="POST">
+            {{ form.hidden_tag() }}
+            {% for field in form if field.widget.input_type != 'hidden' %}
+                <div class="form-group row justify-content-center">
+                    <div class="col-md-6">
+                        {{ field.label(class_="col-sm-2") }}
+                        <div class="col-sm-10">
+                            {{ field(class_="form-control") }}
+                        </div>
+                    </div>
+                </div>
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            {% endfor %}
+            <div class="float-right">
+                <button class="btn btn-primary" type="submit">Create</button>
+                <a class="btn btn-light" href="/" methods="GET" role="button">Back</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

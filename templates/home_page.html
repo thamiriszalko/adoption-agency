@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-right mt-4">
+                <a class="btn btn-primary" href="/pets/new" methods="GET" role="button">New pet</a>
+            </div>
+            {% for pet in pets %}
+                <div class="col-md-3 mt-4 col-md-offset-1 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        {% if pet.img_url %}
+                            <img class="card-img-top" src="{{ pet.img_url }}" alt="{{ pet.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="/pets/{{ pet.id }}">{{ pet.name }} {% if pet.age %}- {{ pet.age }} {% endif %}</a>
+                            </h5>
+                            <p class="card-text">{% if pet.available %} Available {% else %} Not available {% endif %}</p>
+                            {% if pet.notes %} <p class="card-text">{{ pet.notes }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <br>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
